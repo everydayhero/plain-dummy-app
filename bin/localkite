@@ -9,9 +9,9 @@ fi
 
 export ANNOUNCE_ROBOT_SLACK_CHANNEL="#testing"
 export ANNOUNCE_EMAIL_FROM="lang.sharpe@everydayhero.com"
-export ANNOUNCE_EMAIL_FROM_NAME="$APP"
+export ANNOUNCE_EMAIL_FROM_NAME="plain"
 export ANNOUNCE_EMAIL_TO="lang.sharpe@everydayhero.com"
-export APP="${APP:-XXX}"
+export APP="plain-dummy-app"
 export BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 export BUILD_NUMBER="local"
 export BUILD_URL="http://example.com/local-build"
