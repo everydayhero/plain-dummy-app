@@ -1,0 +1,26 @@
+---
+steps:
+  - name: ":docker:"
+    command: "bin/buildkite bin/ci build"
+    agents:
+      queue: native
+      docker: builder
+
+  - type: "waiter"
+
+  - name: ":pill:"
+    command: "bin/buildkite bin/ci run bin/test"
+    agents:
+      queue: elastic
+
+  - type: "waiter"
+
+  - name: ":speech_balloon:"
+    command: "bin/buildkite bin/ci manage-release prepare staging"
+    branches: "master release/*"
+    agents:
+      queue: elastic
+
+  - name: ":rocket: Staging"
+    type: "manual"
+
