@@ -15,12 +15,8 @@ steps:
 
   - type: "waiter"
 
-  - name: ":speech_balloon:"
-    command: "bin/buildkite bin/ci manage-release prepare staging"
+  - name: ":buildkite:"
+    command: "bin/buildkite bin/ci initiate-deploy staging"
     branches: "master release/*"
     agents:
       queue: elastic
-
-  - name: ":rocket: Staging"
-    type: "manual"
-
