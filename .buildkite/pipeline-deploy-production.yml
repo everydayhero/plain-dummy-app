@@ -1,22 +1,22 @@
 ---
 steps:
   - name: ":speech_balloon:"
-    command: "bin/buildkite bin/ci manage-release prepare staging"
+    command: "bin/buildkite bin/ci manage-release prepare production"
     branches: "master release/*"
     agents:
       queue: elastic
 
-  - name: ":rocket: Deploy Staging"
+  - name: ":rocket: Deploy Production"
     type: "manual"
 
   - name: ":speech_balloon:"
-    command: "bin/buildkite bin/ci manage-release releasing staging"
+    command: "bin/buildkite bin/ci manage-release releasing production"
     branches: "master release/*"
     agents:
       queue: elastic
 
   - name: ":hash:"
-    command: "bin/buildkite bin/ci tag staging"
+    command: "bin/buildkite bin/ci tag production"
     branches: "master release/*"
     agents:
       queue: elastic
@@ -24,7 +24,7 @@ steps:
   - type: "waiter"
 
   - name: ":shipit:"
-    command: "bin/buildkite bin/ci deploy staging all:50%"
+    command: "bin/buildkite bin/ci deploy production app:10% clock,worker:20%"
     branches: "master release/*"
     agents:
       queue: elastic
@@ -32,13 +32,7 @@ steps:
   - type: "waiter"
 
   - name: ":speech_balloon:"
-    command: "bin/buildkite bin/ci manage-release released staging"
-    branches: "master release/*"
-    agents:
-      queue: elastic
-
-  - name: ":buildkite:"
-    command: "bin/buildkite bin/ci trigger-build production"
+    command: "bin/buildkite bin/ci manage-release released production"
     branches: "master release/*"
     agents:
       queue: elastic
