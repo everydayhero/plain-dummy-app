@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -u
+
+if grep -q '[X]{3}' $0; then
+  echo "I'm an unconfigured script at $0, configure me please"
+  exit 1
+fi
+
+export ANNOUNCE_ROBOT_SLACK_CHANNEL="#testing"
+export ANNOUNCE_EMAIL_FROM="lang.sharpe@everydayhero.com"
+export ANNOUNCE_EMAIL_FROM_NAME="$APP"
+export ANNOUNCE_EMAIL_TO="lang.sharpe@everydayhero.com"
+export APP="${APP:-XXX}"
+export BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+export BUILD_NUMBER="local"
+export BUILD_URL="http://example.com/local-build"
+export COMMIT="$(git rev-parse HEAD)"
+export PRODUCTION_HEALTH_ENDPOINT='https://dummy-app.everydayhero.io/health'
+export STAGING_HEALTH_ENDPOINT='https://dummy-app.everydayhero-staging.io/health'
+export JOB_ID="local"
+
+"$@"
